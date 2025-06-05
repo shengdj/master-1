@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+            transition: margin-left 0.3s;
+        }
+        .sidebar {
+            width: 25%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            transition: width 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .sidebar .menu-item {
+            background-color: #444;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
+        .sidebar .menu-item:hover,
+        .sidebar .menu-item.active {
+            background-color: #007BFF; /* 高亮显示选中的菜单项 */
+        }
+        .submenu {
+            display: none;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .submenu .submenu-item {
+            background-color: #555;
+            padding: 10px;
+            margin: 5px auto;
+            width: 80%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submenu .submenu-item:hover {
+            background-color: #007BFF;
+        }
+        .content {
+            margin-left: 25%;
+            width: 75%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            background-image: url('https://www.cug.edu.cn/__local/4/21/4C/D8C34A0CB28A07DB0CB5BBA9D8B_4E4D3DB9_2EA84.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: margin-left 0.3s, width 0.3s;
+            padding: 20px;
+        }
+        .left-side {
+            width: 50%; /* 功能模块占用页面的左侧 50% */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .right-side {
+            width: 50%; /* 右侧空白区域，占用页面剩余 50% */
+            padding: 20px;
+            margin-left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        .module {
+            margin-bottom: 20px;
+        }
+        .module input, .module button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .module button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        .module button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-btn {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .jump-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 左侧菜单栏 -->
+    <div class="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <h2>导航菜单</h2>
+        <div id="menu1" class="menu-item" onclick="redirectToPage('page1.html')">
+            用户登录
+        </div>
+        <div id="menu2" class="menu-item" onclick="redirectToPage('page2.html')">
+            数据管理
+        </div>
+        <div id="menu1" class="menu-item" onclick="redirectToPage('page1.html')">
+            数据分析
+        </div>
+        <div id="menu1" class="menu-item" onclick="redirectToPage('page1.html')">
+            操作日志
+        </div>
+    </div>
+
+    <!-- 右侧内容区 -->
+    <div class="content">
+        <!-- 左侧功能模块 -->
+        <div class="left-side">
+            <h1>数据管理 - 功能模块</h1>
+
+            <!-- 数据查询模块 -->
+            <div class="module">
+                <h2>数据查询</h2>
+                <input type="text" placeholder="输入查询关键词">
+                <button>查询数据</button>
+            </div>
+
+            <!-- 数据更改模块 -->
+            <div class="module">
+                <h2>数据更改</h2>
+                <input type="file" placeholder="选择需要更改的数据表">
+                <button>确认替换</button>
+            </div>
+
+            <!-- 数据上传模块 -->
+            <div class="module">
+                <h2>数据上传</h2>
+                <input type="file" placeholder="选择文件">
+                <button>上传数据</button>
+            </div>
+
+            <!-- 数据检测模块 -->
+            <div class="module">
+                <h2>数据检测</h2>
+                <button>检测数据</button>
+            </div>
+        </div>
+
+        <!-- 右侧空白区域，用于显示上传的文件 -->
+        <div class="right-side">
+            <h2>上传的文件</h2>
+            <div id="uploadedFiles">
+                <p>这里将显示您上传的文件。</p>
+                <p>1: huzhubeishanK35~K37-data.xlsx</p>
+                <p>2: weight1-AHP.xlsx</p>
+                <p>3: weight2-entropy.xlsx</p>
+                <p>4: dongmengshantunnel-data.xlsx</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 跳转至新页面
+        function redirectToPage(page) {
+            window.location.href = page;
+        }
+
+        // 控制侧边栏的显示和隐藏
+        function toggleSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            var content = document.querySelector('.content');
+            var toggleButton = document.querySelector('.toggle-btn');
+
+            if (sidebar.style.width === "0px" || sidebar.style.width === "") {
+                sidebar.style.width = "25%";
+                content.style.marginLeft = "25%";
+                content.style.width = "75%";
+                toggleButton.innerHTML = "☰";
+            } else {
+                sidebar.style.width = "0";
+                content.style.marginLeft = "0";
+                content.style.width = "100%";
+                toggleButton.innerHTML = "▶";
+            }
+        }
+    </script>
+
+</body>
+</html>
